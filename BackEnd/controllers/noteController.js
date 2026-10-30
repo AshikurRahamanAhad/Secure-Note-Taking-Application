@@ -34,5 +34,16 @@ const getNotes = async (req, res) => {
   }
 };
 
+const updateNote = async (req, res) => {
+  try {
+    const query = req.user.role === 'Admin' ? { _id: req.params.id } : { _id: req.params.id, userId: req.user.id };
+    const note = await Note.findOneAndUpdate(query, req.body, { new: true });
+    
+    if (!note) return res.status(404).json({ message: 'Not found.' });
+    res.status(200).json({ data: note });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-module.exports = { createNote, getNotes};
+module.exports = { createNote, getNotes, updateNote };
