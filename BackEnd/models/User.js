@@ -19,9 +19,7 @@ const userSchema = new mongoose.Schema({
         enum: ['User', 'Admin'],
         default: 'User'
     },
-    interests: [{
-        type: String
-    }]
+interests: { type: [String], default: [] }
 }, { timestamps: true });
 
 userSchema.index({ interests: 1 });
