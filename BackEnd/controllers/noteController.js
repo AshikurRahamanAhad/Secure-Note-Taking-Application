@@ -46,4 +46,16 @@ const updateNote = async (req, res) => {
   }
 };
 
-module.exports = { createNote, getNotes, updateNote };
+const deleteNote = async (req, res) => {
+  try {
+    const query = req.user.role === 'Admin' ? { _id: req.params.id } : { _id: req.params.id, userId: req.user.id };
+    const note = await Note.findOneAndDelete(query);
+
+    if (!note) return res.status(404).json({ success: false, message: 'Note not found or unauthorized.' });
+    res.status(200).json({ success: true, message: 'Note deleted successfully.' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { createNote, getNotes, updateNote, deleteNote };
