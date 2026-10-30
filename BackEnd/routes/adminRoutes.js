@@ -1,4 +1,5 @@
 const express = require('express');
+const { getUsersWithNotes } = require('../controllers/adminController');
 const { verifyToken, verifyAdmin } = require('../middleware/auth');
 
 const router = express.Router();
