@@ -20,6 +20,14 @@ app.use('/api/auth', authRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/admin', adminRoutes);
 
+app.get('/', (req, res) => {
+    res.status(200).json({ message: "Secure Note Taking API is live and running!" });
+});
+
+// Health Check Endpoint
+app.get('/healthz', (req, res) => {
+  res.status(200).send('The API is healthy');
+});
 
 mongoose.connect(process.env.MONGO_URI )
   .then(() => {
