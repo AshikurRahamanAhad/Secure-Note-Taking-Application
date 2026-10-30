@@ -12,8 +12,15 @@ app.use(express.json());
 app.use(cors());
 
 
+const authRoutes = require('./routes/authRoutes');
+const noteRoutes = require('./routes/noteRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
-// Database Connection & Server Startup
+app.use('/api/auth', authRoutes);
+app.use('/api/notes', noteRoutes);
+app.use('/api/admin', adminRoutes);
+
+
 mongoose.connect(process.env.MONGO_URI )
   .then(() => {
     console.log('MongoDB Connected Successfully');
@@ -21,13 +28,3 @@ mongoose.connect(process.env.MONGO_URI )
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
   .catch((error) => console.error('MongoDB connection error:', error));
-
-  // Import Routes
-const authRoutes = require('./routes/authRoutes');
-const noteRoutes = require('./routes/noteRoutes');
-const adminRoutes = require('./routes/adminRoutes');
-
-// Use Routes
-app.use('/api/auth', );
-app.use('/api/notes', );
-app.use('/api/admin', );
