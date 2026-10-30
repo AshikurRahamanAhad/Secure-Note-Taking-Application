@@ -6,7 +6,7 @@ const getUsersWithNotes = async (req, res) => {
             {
         $lookup: {
           from: 'notes', localField: '_id',
-          foreignField: 'userId', as: 'userNotes'
+          foreignField: 'userID', as: 'userNotes'
           }},
 
             { $project: {password: 0,adminCode: 0}}
